@@ -14,6 +14,7 @@ def store_upsert_video(db: Session, meta: dict) -> None:
         "channel_id":    meta.get("channel_id"),
         "channel_title": meta.get("channel_title"),
         "published_at":  _parse_dt(meta.get("published_at")),
+        "thumbnail_url": meta.get("thumbnail_url"),
     }
     Insert = pg_insert if engine.dialect.name == "postgresql" else sqlite_insert
     stmt = Insert(Video).values(**values).on_conflict_do_update(

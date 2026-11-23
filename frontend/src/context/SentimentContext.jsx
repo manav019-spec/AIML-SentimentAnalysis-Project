@@ -14,6 +14,7 @@ export const SentimentProvider = ({ children }) => {
   const [hasActiveReport, setHasActiveReport] = useState(false);
   const [errorState, setErrorState] = useState(null);
   const [analysisProgress, setAnalysisProgress] = useState(null); // { progress: 0-100, stage }
+  const [popupData, setPopupData] = useState(null); // { title, message }
   // The loading skeleton replaces the page only once a job has really started, so a quick failure
   // (wrong URL, server down) leaves whatever is on screen untouched and just shows the inline message.
   const [jobStarted, setJobStarted] = useState(false);
@@ -138,7 +139,22 @@ export const SentimentProvider = ({ children }) => {
       refreshHistory();
       refreshUser();
     } catch (err) {
-      if (isCurrent()) setErrorState(api.toErrorState(err));
+      if (isCurrent()) {
+        const error = api.toErrorState(err);
+        setErrorState(error);
+        
+        // NEW: Check if it's a live stream/no comments error and trigger popup
+        if (
+          error?.message?.toLowerCase().includes("live stream") ||
+          error?.message?.toLowerCase().includes("no comments") ||
+          error?.type === "NO_COMMENTS"
+        ) {
+          setPopupData({
+            title: "Live Stream Notice",
+            message: "YouTube doesn't provide standard comments for active live streams. Please try a regular video or a past live stream!"
+          });
+        }
+      }
     } finally {
       if (isCurrent()) {
         setIsLoading(false);
@@ -235,7 +251,9 @@ export const SentimentProvider = ({ children }) => {
         clearHistory,
         analyzeVideo,
         openReport,
-        viewSampleReport
+        viewSampleReport,
+        popupData,
+        setPopupData
       }}
     >
       {/* Fallback straight-line visual line for non-view-transition browsers */}

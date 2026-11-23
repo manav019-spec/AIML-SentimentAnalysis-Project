@@ -21,6 +21,11 @@ def parse_video_id(url: str) -> str:
 def fetch_bundle(video_id: str, max_comments: int):
     meta = fetch_video_metadata(video_id)
     raw = fetch_comments(video_id, max_comments=max_comments, order="relevance")
+    
+    # NEW: If no comments are found, throw a specific error
+    if not raw:
+        raise ValueError("NO_COMMENTS: This video has no comments. If it is a live stream, standard comments may not be available yet.")
+
     comments = [{
         "comment_id":   c["comment_id"],
         "author_id":    c.get("author_id"),

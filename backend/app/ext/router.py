@@ -68,16 +68,15 @@ def analyze_url(body: AnalyzeUrlRequest,
         meta, comments = ext_youtube.fetch_bundle(
             video_id, body.max_comments or settings.MAX_COMMENTS
         )
+    except ValueError as exc:
+        db.query(AnalysisJob).filter(AnalysisJob.job_id == job_id).update({"status": "FAILED"})
+        db.commit()
+        # Returns a 400 with the exact message so the frontend can show it
+        raise HTTPException(400, {"type": "NO_COMMENTS", "message": str(exc).replace("NO_COMMENTS: ", "")})
     except Exception as exc:
-        db.query(AnalysisJob).filter(AnalysisJob.job_id == job_id).update(
-            {"status": "FAILED"})
+        db.query(AnalysisJob).filter(AnalysisJob.job_id == job_id).update({"status": "FAILED"})
         db.commit()
         raise HTTPException(502, {"type": "YOUTUBE", "message": str(exc)})
-
-    ext_store.store_upsert_video(db, meta)
-    ext_jobs.enqueue(job_id, meta, comments)
-    return AnalyzeUrlResponse(job_id=job_id, video_id=video_id, status="PENDING")
-
 
 # ─── Report ──────────────────────────────────────────────────────────────────
 @router.get("/report/{video_id}")

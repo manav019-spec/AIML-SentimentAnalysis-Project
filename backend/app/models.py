@@ -13,6 +13,7 @@ class Video(Base):
     channel_id    = Column(String(100), nullable=True)
     channel_title = Column(String(255), nullable=True)
     published_at  = Column(DateTime(timezone=True), nullable=True)
+    thumbnail_url = Column(String(500), nullable=True)
     created_at    = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     comments = relationship("Comment", back_populates="video", cascade="all, delete-orphan")

@@ -29,7 +29,7 @@ import { ToxicityCard } from './components/dashboard/ToxicityCard';
 import { AudienceInsights } from './components/dashboard/AudienceInsights';
 
 export function App() {
-  const { activeTab, showSkeleton, currentVideo, goToHome } = useSentiment();
+  const { activeTab, showSkeleton, currentVideo, goToHome, popupData, setPopupData } = useSentiment();
   const { isAuthenticated, authReady } = useAuth();
 
   // Wait until the saved session has been checked, so the page doesn't flash the signed-out home.
@@ -153,6 +153,24 @@ export function App() {
 
       {/* Global Auth Modal */}
       <AuthModal />
+
+      {/* NEW: Live Stream / Error Popup */}
+      {popupData && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white dark:bg-[#1A1A1A] border border-[#E5E5E5] dark:border-[#303030] rounded-xl p-6 max-w-sm w-full shadow-2xl space-y-4 animate-[scale-in_0.2s_ease-out]">
+            <h3 className="text-lg font-semibold text-[#111111] dark:text-[#F5F5F5]">{popupData.title}</h3>
+            <p className="text-sm text-[#777777] dark:text-[#888888] leading-relaxed">{popupData.message}</p>
+            <div className="flex justify-end pt-2">
+              <button 
+                onClick={() => setPopupData(null)}
+                className="px-4 py-2 bg-[#111111] dark:bg-[#F5F5F5] text-white dark:text-[#111111] text-xs font-semibold rounded-md hover:bg-black dark:hover:bg-white transition-colors"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Dynamic Footer */}
       <Footer />

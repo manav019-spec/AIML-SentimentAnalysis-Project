@@ -46,12 +46,11 @@ def get_youtube_client():
 def fetch_video_metadata(video_id: str) -> dict:
     """
     Returns a dict with keys:
-        video_id, video_title, channel_id, channel_title, published_at
-    Raises HttpError on API failure or ValueError if video not found.
+        video_id, video_title, channel_id, channel_title, published_at, thumbnail_url
     """
     youtube = get_youtube_client()
     response = youtube.videos().list(
-        part="snippet",
+        part="snippet,contentDetails",  # <--- Added contentDetails
         id=video_id,
     ).execute()
 
@@ -60,12 +59,23 @@ def fetch_video_metadata(video_id: str) -> dict:
         raise ValueError(f"Video '{video_id}' not found or is private/deleted.")
 
     snippet = items[0]["snippet"]
+    
+    # Extract the highest resolution thumbnail available
+    thumbnails = snippet.get("thumbnails", {})
+    thumbnail_url = (
+        thumbnails.get("maxres", {}).get("url") or 
+        thumbnails.get("high", {}).get("url") or 
+        thumbnails.get("medium", {}).get("url") or 
+        thumbnails.get("default", {}).get("url")
+    )
+
     return {
         "video_id":      video_id,
         "video_title":   snippet.get("title", "Untitled"),
         "channel_id":    snippet.get("channelId"),
         "channel_title": snippet.get("channelTitle"),
-        "published_at":  snippet.get("publishedAt"),   # ISO-8601 string
+        "published_at":  snippet.get("publishedAt"),
+        "thumbnail_url": thumbnail_url,  # <--- Added this
     }
 
 
