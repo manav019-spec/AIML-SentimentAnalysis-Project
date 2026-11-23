@@ -1,137 +1,274 @@
 # SentiScope — YouTube Comment Sentiment & Toxicity Analysis
 
-SentiScope is a full-stack AI application that analyzes YouTube comments to extract deep audience insights. It uses a custom fine-tuned **HingRoBERTa** (multilingual) model to perform multi-task classification: **Sentiment** (Positive/Neutral/Negative), **Toxicity** (Toxic/Non-Toxic), and **Spam** detection.
+SentiScope is a full-stack AI-powered application designed to analyze YouTube comments and uncover meaningful audience insights. Powered by a custom fine-tuned **HingRoBERTa** multilingual model, it performs multi-task classification to identify **Sentiment (Positive, Neutral, Negative), Toxicity (Toxic, Non-Toxic), and Spam** in YouTube comments.
 
-## ✨ Features
-- **Instant NLP Scoring:** Analyzes up to 500 comments per video using a custom PyTorch model.
-- **Toxicity & Spam Filtering:** Automatically isolates promotional spam and flags toxic language.
-- **Interactive Dashboard:** Beautiful data visualizations (Donut charts, Trend lines, Emoji reactions, Word clouds).
-- **User Accounts & History:** JWT-based authentication to save and reopen your analysis reports.
-- **Team Section:** Built-in portfolio page for the development team.
+By combining machine learning, data visualization, and an interactive dashboard, SentiScope helps users understand audience opinions, identify harmful or irrelevant content, and explore engagement patterns through actionable insights.
+
+## Features
+
+- **AI-Powered Sentiment Analysis:** Analyzes up to 500 comments per video using a custom-trained PyTorch model.
+- **Multi-Task Classification:** Simultaneously predicts sentiment, toxicity, and spam using a shared HingRoBERTa backbone with three specialized classification heads.
+- **Toxicity & Spam Detection:** Identifies harmful comments and filters promotional or irrelevant spam to improve the quality of audience insights.
+- **Interactive Analytics Dashboard:** Presents results through intuitive visualizations, including donut charts, sentiment trends, emoji reactions, and word clouds.
+- **YouTube Integration:** Fetches video information and comments using the YouTube Data API v3.
+- **User Authentication:** Implements JWT-based authentication for secure user registration, login, and session management.
+- **Analysis History:** Allows users to save, access, and revisit previously generated video analysis reports.
+- **Team Section:** Includes a dedicated portfolio section showcasing the project's development team and their contributions.
 
 ---
 
-## 🛠️ Tech Stack
-- **Frontend:** React, Vite, Tailwind CSS, Lucide Icons
-- **Backend:** FastAPI, SQLAlchemy, PostgreSQL (Neon), Celery & Redis
-- **Machine Learning:** PyTorch, Hugging Face Transformers (`l3cube-pune/hing-roberta-mixed`)
+## Tech Stack
+
+- **Frontend:** React.js, Vite, Tailwind CSS, Lucide Icons
+- **Backend:** FastAPI, Python, SQLAlchemy
+- **Database:** PostgreSQL (Neon)
+- **Background Processing:** Celery, Redis, and background threads
+- **Machine Learning:** PyTorch, Hugging Face Transformers
+- **Pre-trained Backbone:** `l3cube-pune/hing-roberta-mixed`
+- **Authentication:** JSON Web Tokens (JWT)
+- **External API:** YouTube Data API v3
 
 ---
 
 ## 👥 The Team
-- **Manav Jain** (Team Lead - Full Stack & ML Engineer) - [manav4830.se24@chitkara.edu.in](mailto:manav4830.se24@chitkara.edu.in) | [LinkedIn](https://www.linkedin.com/in/manav-jain-7055b4315)
-- **Lakshya Singla** (Backend Engineer) - [lakshya4825.se24@chitkara.edu.in](mailto:lakshya4825.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/lakshya-singla-a794b931b)
-- **Jasanpreet Kaur** (Data Scientist) - [jasanpreet4809.se24@chitkara.edu.in](mailto:jasanpreet4809.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/jasanpreet-kaur-5905ba264)
-- **Piyush Mehta** (Frontend & Data Viz) - [piyush4855.se24@chitkara.edu.in](mailto:piyush4855.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/piyush-mehta-6bb09132a)
+
+- **Manav Jain** (Team Lead – Full Stack & ML Engineer) – [manav4830.se24@chitkara.edu.in](mailto:manav4830.se24@chitkara.edu.in) | [LinkedIn](https://www.linkedin.com/in/manav-jain-7055b4315)
+- **Lakshya Singla** (Backend Engineer) – [lakshya4825.se24@chitkara.edu.in](mailto:lakshya4825.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/lakshya-singla-a794b931b)
+- **Jasanpreet Kaur** (Data Scientist) – [jasanpreet4809.se24@chitkara.edu.in](mailto:jasanpreet4809.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/jasanpreet-kaur-5905ba264)
+- **Piyush Mehta** (Frontend & Data Visualization) – [piyush4855.se24@chitkara.edu.in](mailto:piyush4855.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/piyush-mehta-6bb09132a)
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
+
+Make sure you have the following installed:
+
 - Python 3.10+
 - Node.js 18+
 - PostgreSQL database (e.g., [Neon](https://neon.tech/))
 - YouTube Data API v3 Key
 
 ### 1. Backend Setup
+
+Navigate to the backend directory:
+
 ```bash
 cd backend
+```
+
+Create and activate a Python virtual environment:
+
+```bash
 python -m venv venv
+```
 
-# Activate the virtual environment:
-# Windows:
+**Activate the virtual environment:**
+
+Windows:
+
+```powershell
 .\venv\Scripts\activate
-# Mac/Linux:
+```
+
+Mac/Linux:
+
+```bash
 source venv/bin/activate
+```
 
-# Install dependencies
+**Install dependencies:**
+
+```bash
 pip install -r requirements.txt
+```
 
-**Model Weights:**
-Because the fine-tuned model (run2_best.pt) is large (1.03GB), it is not tracked by Git. Thus, we have placed our model files inside backend/app/artifacts/:
-1. run2_best.pt
-2. config_run2.json
-3. backbone_config/ (folder)
-4. tokenizer/ (folder)
+### Model Weights
 
-Environment Variables:
-Create a backend/.env file and add your specific keys:
+SentiScope uses a custom fine-tuned HingRoBERTa multi-task classification model. Since the trained checkpoint (`run2_best.pt`) is approximately **1.03 GB**, it is not tracked through Git.
 
-env
+The model artifacts must be placed inside:
+
+```text
+backend/app/artifacts/
+```
+or can be found through following drive link: 
+https://colab.research.google.com/drive/1PAoHBZOYui7zPhpfxd_hZ6LlYSl1wO_h#scrollTo=Wfnlvd9JD88E
+
+Required model files:
+
+1. `run2_best.pt` – Fine-tuned model checkpoint containing the trained weights for the multi-task architecture.
+2. `config_run2.json` – Model configuration, classification thresholds, and inference settings.
+3. `backbone_config/` – Hugging Face backbone configuration.
+4. `tokenizer/` – Tokenizer files required for preprocessing and inference.
+
+**Important:** Ensure that all model artifacts are available in the configured model directory before starting the backend.
+
+### Environment Variables
+
+Create a `.env` file inside the `backend/` directory:
+
+```env
 DATABASE_URL=postgresql://user:password@host/dbname
-REDIS_URL=redis://localhost:6379/0  # Optional: Leave blank to use background threads instead of Celery
+REDIS_URL=redis://localhost:6379/0
 YOUTUBE_API_KEY=your_youtube_api_key
 JWT_SECRET=super_secret_random_string
 CORS_ORIGINS=http://localhost:5173
-Database Migration (Important for existing databases):
-If you are connecting to an existing PostgreSQL database, run this SQL command in your database (e.g., via Neon SQL Editor) to support video thumbnails:
+```
 
-sql
-ALTER TABLE videos ADD COLUMN IF NOT EXISTS thumbnail_url VARCHAR(500);
-Start Backend Server:
+Redis is optional. If it is not configured, the application can use background threads for processing instead of Celery.
 
-bash
+### Database Migration
+
+If you are connecting to an existing PostgreSQL database, execute the following SQL command through your database console or Neon SQL Editor to support video thumbnails:
+
+```sql
+ALTER TABLE videos
+ADD COLUMN IF NOT EXISTS thumbnail_url VARCHAR(500);
+```
+
+### Start the Backend Server
+
+From the `backend/` directory, run:
+
+```bash
 uvicorn app.main:app --reload --port 8000
-(Optional) If using Celery/Redis for background jobs, start the worker in a new terminal:
+```
 
-bash
+The backend API will be available at:
+
+```text
+http://localhost:8000
+```
+
+Interactive API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+**Optional: Start Celery and Redis for background processing**
+
+If you are using Celery and Redis, ensure your Redis server is running and start the Celery worker in a separate terminal:
+
+```bash
 celery -A app.tasks.celery_app worker --loglevel=info --pool=solo
-2. Frontend Setup
-Open a new terminal window:
+```
 
-bash
+### 2. Frontend Setup
+
+Open a new terminal and navigate to the frontend directory:
+
+```bash
 cd frontend
+```
+
+Install the required Node.js dependencies:
+
+```bash
 npm install
-Create a frontend/.env file:
+```
 
-env
+Create a `.env` file inside the `frontend/` directory:
+
+```env
 VITE_API_URL=http://localhost:8000/api/v1
-Start Frontend:
+```
 
-bash
+### Start the Frontend
+
+Run the development server:
+
+```bash
 npm run dev
-Open http://localhost:5173 in your browser to view the app!
+```
 
-📂 Project Structure
-text
+Open the application in your browser:
+
+```text
+http://localhost:5173
+```
+
+SentiScope is now ready to use locally!
+
+---
+
+## Project Structure
+
+```text
 sentiscope/
+│
 ├── backend/
 │   ├── app/
-│   │   ├── artifacts/       # AI Model weights and tokenizers (ignored by Git)
-│   │   ├── ext/             # API Adapters (Auth, Community, Reports, Routing)
-│   │   ├── models.py        # SQLAlchemy database models
-│   │   ├── main.py          # FastAPI application entry point
-│   │   ├── model_def.py     # PyTorch Multi-Task HingRoBERTa definition
-│   │   └── tasks.py         # Celery background worker tasks
-│   ├── requirements.txt
-│   └── .env                 # Backend secrets (ignored by Git)
+│   │   ├── artifacts/          # Fine-tuned model weights, configs and tokenizers
+│   │   ├── ext/                # API adapters (Auth, Community, Reports, Routing)
+│   │   ├── models.py           # SQLAlchemy database models
+│   │   ├── main.py             # FastAPI application entry point
+│   │   ├── model_def.py        # Multi-task HingRoBERTa model and prediction logic
+│   │   └── tasks.py            # Celery background worker tasks
+│   │
+│   ├── requirements.txt        # Python dependencies
+│   └── .env                    # Backend environment variables (not tracked by Git)
 │
-└── frontend/
-    ├── public/              # Static assets (images, icons)
-    ├── src/
-    │   ├── components/      # React components (Dashboard, Landing, Common)
-    │   ├── context/         # React contexts (Auth, Sentiment, Language)
-    │   ├── services/        # API fetch handlers
-    │   └── App.jsx
-    ├── package.json
-    └── .env                 # Frontend environment variables
-📡 API Endpoints (Backend Overview)
-Authentication
-POST /api/v1/auth/register - Create a new account
+├── frontend/
+│   ├── public/                 # Static assets, images and icons
+│   ├── src/
+│   │   ├── components/         # Dashboard, Landing and Common components
+│   │   ├── context/            # Authentication, Sentiment and Language contexts
+│   │   ├── services/           # API request handlers and integrations
+│   │   └── App.jsx             # Main React application
+│   │
+│   ├── package.json            # Frontend dependencies and scripts
+│   └── .env                    # Frontend environment variables
+│
+└── README.md
+```
 
-POST /api/v1/auth/login - Sign in to get JWT tokens
+---
 
-GET /api/v1/auth/me - Get current user profile
+## API Endpoints
 
-Analysis
-POST /api/v1/analyze-url - Starts the YouTube scraping & analysis job
+The backend exposes RESTful APIs through FastAPI for authentication, video analysis, report generation, and user history.
 
-GET /api/v1/status/{job_id} - Polls the progress of the analysis
+### Authentication
 
-GET /api/v1/report/{video_id} - Generates the full dashboard report JSON
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/v1/auth/register` | Registers a new user account. |
+| POST | `/api/v1/auth/login` | Authenticates a user and generates JWT tokens. |
+| GET | `/api/v1/auth/me` | Retrieves the authenticated user's profile. |
 
-GET /api/v1/history - Fetches the logged-in user's past analyses
+### Video Analysis
 
-🛡️ License
-This project is created for educational and portfolio purposes. All rights reserved by the creators.
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/v1/analyze-url` | Initiates YouTube comment collection and analysis. |
+| GET | `/api/v1/status/{job_id}` | Retrieves the progress and status of an analysis job. |
+| GET | `/api/v1/report/{video_id}` | Generates and retrieves the complete dashboard report. |
+| GET | `/api/v1/history` | Retrieves the authenticated user's previous analyses. |
+
+---
+
+## Machine Learning Architecture
+
+SentiScope uses a custom fine-tuned HingRoBERTa model built on the `l3cube-pune/hing-roberta-mixed` multilingual backbone.
+
+The architecture follows a shared-backbone, multi-task learning approach:
+
+- **Shared Backbone:** Processes input comments and extracts contextual representations.
+- **Spam Classification Head:** Predicts whether a comment is spam or legitimate.
+- **Sentiment Classification Head:** Classifies comments into Positive, Neutral, or Negative categories.
+- **Toxicity Classification Head:** Identifies toxic and non-toxic language.
+
+The model applies a preprocessing pipeline consistent with training, including URL normalization, emoji conversion, mention removal, hashtag segmentation, and text normalization.
+
+Spam detection is applied as a gating mechanism: comments classified as spam are excluded from subsequent sentiment and toxicity interpretation.
+
+---
+
+## License
+
+This project has been developed for educational, research and portfolio purposes.
+
+**All rights reserved by the creators.**
