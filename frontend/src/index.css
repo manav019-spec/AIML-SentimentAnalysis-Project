@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white dark:bg-[#121212] text-[#111111] dark:text-[#F5F5F5] font-sans transition-colors duration-200;
+  }
+
+  * {
+    @apply transition-colors duration-150;
+  }
+}
+
+/* Custom scrollbar — minimal, monochrome */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D0D0D0;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3A3A3A;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #AAAAAA;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* Skeleton Loading Shimmer — neutral grey */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.0) 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    rgba(0, 0, 0, 0.0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.0) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Chart path transitions */
+.chart-path {
+  transition: stroke-dashoffset 1s ease-in-out, opacity 0.3s ease;
+}
+
+/* =========================================================================
+   CRISP STRAIGHT-LINE THEME TRANSITION
+   - Clean horizontal dividing line sweeping across the screen
+   - Light to Dark: Sweeps TOP to BOTTOM
+   - Dark to Light: Sweeps BOTTOM to TOP
+   ========================================================================= */
+
+@keyframes straightLineWipeDown {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes straightLineWipeUp {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+html.transitioning-to-dark::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+html.transitioning-to-dark::view-transition-new(root) {
+  animation-name: straightLineWipeDown;
+  z-index: 2;
+}
+
+html.transitioning-to-light::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+html.transitioning-to-light::view-transition-new(root) {
+  animation-name: straightLineWipeUp;
+  z-index: 2;
+}
+
+/* Fallback overlays for non-View Transition environments */
+.theme-line-to-dark {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background: #121212;
+  animation: straightLineWipeDown 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.theme-line-to-light {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background: #FFFFFF;
+  animation: straightLineWipeUp 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* =========================================================================
+   REPORT DATA-VIZ — cards, borders and text stay monochrome (homepage system);
+   the CHARTS use basic semantic colours so they read at a glance:
+     sentiment  → green (positive) · amber (neutral) · red (negative)
+     toxicity   → green (clean)    · amber (borderline) · red (toxic)
+     plain counts (likes, emoji…) → blue
+   Change the palette here, in one place.
+   ========================================================================= */
+:root {
+  --viz-pos: #16A34A;      /* green  */
+  --viz-neu: #F59E0B;      /* amber  */
+  --viz-neg: #DC2626;      /* red    */
+  --viz-accent: #2563EB;   /* blue   */
+  --viz-ink: #111111;
+  --viz-grid: #E5E5E5;
+  --viz-muted: #777777;
+  --viz-track: #F0F0F0;
+}
+
+.dark {
+  --viz-pos: #22C55E;
+  --viz-neu: #FBBF24;
+  --viz-neg: #F87171;
+  --viz-accent: #60A5FA;
+  --viz-ink: #F5F5F5;
+  --viz-grid: #303030;
+  --viz-muted: #888888;
+  --viz-track: #252525;
+}
+
+/* HTML fills */
+.viz-pos { background: var(--viz-pos); }
+.viz-neu { background: var(--viz-neu); }
+.viz-neg { background: var(--viz-neg); }
+.viz-accent { background: var(--viz-accent); }
+.viz-ink { background: var(--viz-ink); }
+.viz-track { background: var(--viz-track); }
+
+/* SVG fills / strokes / text */
+.viz-f-pos { fill: var(--viz-pos); }
+.viz-f-neu { fill: var(--viz-neu); }
+.viz-f-neg { fill: var(--viz-neg); }
+.viz-f-accent { fill: var(--viz-accent); }
+.viz-s-pos { stroke: var(--viz-pos); }
+.viz-s-neu { stroke: var(--viz-neu); }
+.viz-s-neg { stroke: var(--viz-neg); }
+.viz-s-accent { stroke: var(--viz-accent); }
+.viz-s-track { stroke: var(--viz-track); }
+.viz-s-grid { stroke: var(--viz-grid); }
+.viz-s-ink { stroke: var(--viz-ink); }
+.viz-t-muted { fill: var(--viz-muted); }
+.viz-t-ink { fill: var(--viz-ink); }
+
+/* Soft tinted badges for severity levels (Low / Moderate / High) */
+.badge-pos { background: rgba(22,163,74,.10); color: #15803D; border-color: rgba(22,163,74,.35); }
+.badge-neu { background: rgba(245,158,11,.12); color: #B45309; border-color: rgba(245,158,11,.40); }
+.badge-neg { background: rgba(220,38,38,.10); color: #B91C1C; border-color: rgba(220,38,38,.35); }
+.dark .badge-pos { background: rgba(34,197,94,.14); color: #4ADE80; border-color: rgba(34,197,94,.40); }
+.dark .badge-neu { background: rgba(251,191,36,.14); color: #FCD34D; border-color: rgba(251,191,36,.40); }
+.dark .badge-neg { background: rgba(248,113,113,.14); color: #FCA5A5; border-color: rgba(248,113,113,.40); }
+
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}

@@ -1,0 +1,36 @@
+# Environments
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment variables (DO NOT UPLOAD SECRETS)
+.env
+.env.local
+.jwt_secret
+
+# AI Models (Too large for GitHub standard)
+backend/app/artifacts/
+*.pt
+*.pth
+
+# Database
+*.db
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# OS Files
+.DS_Store
+Thumbs.db

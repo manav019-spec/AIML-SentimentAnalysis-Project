@@ -1,0 +1,14 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+celery==5.4.0
+redis==8.2.0
+sqlalchemy==2.0.35
+psycopg2-binary
+transformers
+torch
+python-dotenv==1.0.1
+pydantic
+accelerate>=0.26.0
+google-api-python-client>=2.100.0
+emoji
+wordninja

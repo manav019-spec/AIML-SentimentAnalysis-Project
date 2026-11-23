@@ -1,0 +1,6 @@
+.env
+.venv/
+venv/
+app/artifacts/
+*.pt
+__pycache__/
