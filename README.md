@@ -190,33 +190,39 @@ Open the application in your browser:
 http://localhost:5173
 ```
 
-**In General: **
+### In General:
 
-Terminal 1: Run the Backend
-powershell
-cd C:\Chitkara\sentiscope\backend
+_Terminal 1:_ Run the Backend
+
+```bash
 .\venv\Scripts\Activate.ps1
+```
+
+```text
 uvicorn app.main:app --reload --port 8000
+```
+
 (Leave this terminal open. It will say Application startup complete and load your AI model).
 
-Terminal 2: Run the Frontend
+_Terminal 2:_ Run the Frontend
 Open a new PowerShell window and run:
 
-powershell
-cd C:\Chitkara\sentiscope\frontend
+```text
 npm run dev
+```
 (Leave this terminal open. It will give you a http://localhost:5173 link).
 
-(Optional) Terminal 3: Run Celery (Background Worker)
+(Optional) _Terminal 3:_ Run Celery (Background Worker)
 If you are using Redis and want background processing, open a third terminal window:
 
-powershell
-cd C:\Chitkara\sentiscope\backend
+```text
 .\venv\Scripts\Activate.ps1
 celery -A app.tasks.celery_app worker --loglevel=info --pool=solo
+```
+
 (If you aren't using Redis right now, you can skip this—the backend will process jobs automatically in the background).
 
-SentiScope is now ready to use locally!
+**_SentiScope is now ready to use locally!_**
 
 ---
 
