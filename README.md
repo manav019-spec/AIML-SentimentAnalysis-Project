@@ -32,10 +32,10 @@ By combining machine learning, data visualization, and an interactive dashboard,
 
 ## 👥 The Team
 
-- **Manav Jain** (Team Lead – Full Stack & ML Engineer) – [manav4830.se24@chitkara.edu.in](mailto:manav4830.se24@chitkara.edu.in) | [LinkedIn](https://www.linkedin.com/in/manav-jain-7055b4315)
-- **Lakshya Singla** (Backend Engineer) – [lakshya4825.se24@chitkara.edu.in](mailto:lakshya4825.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/lakshya-singla-a794b931b)
-- **Jasanpreet Kaur** (Data Scientist) – [jasanpreet4809.se24@chitkara.edu.in](mailto:jasanpreet4809.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/jasanpreet-kaur-5905ba264)
-- **Piyush Mehta** (Frontend & Data Visualization) – [piyush4855.se24@chitkara.edu.in](mailto:piyush4855.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/piyush-mehta-6bb09132a)
+- **Manav Jain** (Team Lead – Full Stack & ML Engineer-UPCOMING) – [manav4830.se24@chitkara.edu.in](mailto:manav4830.se24@chitkara.edu.in) | [LinkedIn](https://www.linkedin.com/in/manav-jain-7055b4315)
+- **Lakshya Singla** (Backend Engineer-UPCOMING) – [lakshya4825.se24@chitkara.edu.in](mailto:lakshya4825.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/lakshya-singla-a794b931b)
+- **Jasanpreet Kaur** – [jasanpreet4809.se24@chitkara.edu.in](mailto:jasanpreet4809.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/jasanpreet-kaur-5905ba264)
+- **Piyush Mehta** (Frontend & Data Visualization-UPCOMING) – [piyush4855.se24@chitkara.edu.in](mailto:piyush4855.se24@chitkara.edu.in) | [LinkedIn](https://linkedin.com/in/piyush-mehta-6bb09132a)
 
 ---
 
